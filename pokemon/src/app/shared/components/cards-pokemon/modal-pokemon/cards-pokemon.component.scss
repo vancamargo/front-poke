@@ -1,0 +1,33 @@
+.card-pokemon {
+  border-radius: 100px;
+  background: #3d84fb;
+  padding: 20px;
+  margin-top: 38px;
+  width: 980px;
+  height: 150px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &__form-name {
+    width: 680px;
+  }
+
+  &__form-comment {
+    display: flex;
+    justify-content: flex-end;
+    align-items: end;
+  }
+
+  &__button-add {
+    margin-left: 18px;
+  }
+
+  input {
+    margin-bottom: 8px;
+  }
+
+  ngb-pagination {
+    max-width: 400px;
+  }
+}
