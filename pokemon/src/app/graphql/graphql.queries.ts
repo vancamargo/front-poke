@@ -22,3 +22,12 @@ export const GET_Search = gql`
     }
   }
 `;
+
+export const Filter_Pokemon = gql`
+  query teste($pokeName: String!) {
+    pokemon_v2_pokemon(where: { name: { _eq: $pokeName } }) {
+      id
+      name
+    }
+  }
+`;

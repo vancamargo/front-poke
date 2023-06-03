@@ -11,7 +11,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Apollo } from 'apollo-angular';
 import { Subject, takeUntil } from 'rxjs';
 import { GET_Search } from 'src/app/graphql/graphql.queries';
-import { PokemonGql } from 'src/app/interfaces/pokemon-gql.interface';
+import { PokemonGql } from 'src/app/intefaces/pokemon-gql.interface';
 import { PokemonServiceService } from 'src/app/services/pokemon-service.service';
 
 @Component({
@@ -51,18 +51,22 @@ export class ModalPokemonComponent implements OnInit {
   }
 
   getById(id: number) {
-    console.log(id);
-    debugger;
     this.apollo
-      .watchQuery<any>({
+      .watchQuery<{ pokemon_v2_pokemon_by_pk: PokemonGql }>({
         query: GET_Search,
         variables: {
           pokeId: id,
         },
       })
       .valueChanges.subscribe(({ data }) => {
-        debugger;
-        console.log(data, 'pokemon_v2_pokemon');
+        var pokemon = data.pokemon_v2_pokemon_by_pk.name;
+        console.log(pokemon, 'pokemon_v2_pokemon');
+        this.pokeForm.controls['name'].setValue(
+          data.pokemon_v2_pokemon_by_pk.name
+        );
+        // this.pokeForm.controls['name'].setValue(
+        //   data.pokemon_v2_pokemon_by_pk[0]
+        // );
         // var fruritById = data.allFruits[0];
         // this.fruitForm = {
         //   id: fruritById.id,

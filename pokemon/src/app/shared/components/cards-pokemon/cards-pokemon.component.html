@@ -1,7 +1,28 @@
+<div class="col col-md-6 offset-md-2">
+  <div class="input-group mb-3">
+    <input
+      type="text"
+      class="form-control"
+      [(ngModel)]="searchName"
+      placeholder="Search By Name"
+      aria-label="Recipient's username"
+      aria-describedby="button-addon2"
+    />
+    <button
+      class="btn btn-outline-primary"
+      (click)="search()"
+      type="button"
+      id="btnsearch"
+    >
+      Search
+    </button>
+  </div>
+</div>
+
 <div
   class="card-pokemon"
   *ngFor="
-    let pokemon of allPokemon$
+    let pokemon of allPokemon
       | async
       | slice : (page - 1) * pageSize : page * pageSize
   "
@@ -19,30 +40,29 @@
       />
     </div>
     <div class="card-pokemon__form-comment">
-      <!-- <input
+      <input
         type="text"
-        value="{{ pokemon.description }}"
+        [formControl]="coments"
         class="form-control"
         id="exampleInputPassword1"
         placeholder="Comentários"
-        readonly
-      /> -->
+      />
 
+      <button
+        type="button"
+        class="btn btn-warning"
+        (click)="addComents(pokemon.id)"
+      >
+        Adicionar Comentário
+      </button>
       <button
         type="button"
         class="btn btn-warning"
         (click)="edit(pokemon.id)"
         [routerLink]="['edit', pokemon.id]"
       >
-        Editar
+        Abrir comentário
       </button>
-      <!-- <button
-        type="button"
-        class="btn btn-warning"
-        (click)="delete(pokemon.id)"
-      >
-        Deletar
-      </button>  -->
     </div>
   </form>
 </div>
@@ -53,6 +73,6 @@
   <ngb-pagination
     [(page)]="page"
     [pageSize]="pageSize"
-    [collectionSize]="70"
+    [collectionSize]="200"
   ></ngb-pagination>
 </div>
