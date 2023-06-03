@@ -3,8 +3,11 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Apollo } from 'apollo-angular';
-import { app } from 'src/app/graphql/graphql.queries';
-import { Pokemon } from 'src/app/intefaces/pokemon.interface';
+import { Observable, map, of } from 'rxjs';
+import { GET_ALL } from 'src/app/graphql/graphql.queries';
+import { PokemonGql } from 'src/app/interfaces/pokemon-gql.interface';
+import { Pokemon } from 'src/app/interfaces/pokemon.interface';
+
 import { PokemonServiceService } from 'src/app/services/pokemon-service.service';
 
 interface Country {
@@ -104,6 +107,7 @@ export class CardsPokemonComponent implements OnInit {
 
   collectionSize: any;
   countries: any[] = [];
+  allPokemon$: Observable<PokemonGql[]> = of([]);
 
   constructor(
     private formBuilder: FormBuilder,
@@ -118,27 +122,31 @@ export class CardsPokemonComponent implements OnInit {
     this.getAll();
   }
 
-  // getAll() {
-  //   this.apollo
-  //     .watchQuery({ query: app })
-  //     .valueChanges.subscribe((result: any) => {
-  //       this.pokeData = result.data.pokemon_v2_pokemon;
-  //       this.collectionSize = this.pokeData.length;
-  //       //  console.log(result.data.gen3_species.pokemon_v2_pokemon);
-
-  //       console.log(result.data.pokemon_v2_pokemon);
-  //     });
-  // }
-
   getAll() {
-    this.vehicleService.getPokemon().subscribe({
-      next: (res) => {
-        this.pokeData = res;
-        console.log(this.pokeData);
-      },
-      error: (err) => {},
-    });
+    this.allPokemon$ = this.apollo
+      .watchQuery<{ pokemon_v2_pokemon: PokemonGql[] }>({ query: GET_ALL })
+      .valueChanges.pipe(map((result) => result.data.pokemon_v2_pokemon));
+
+    // this.apollo
+    //   .watchQuery({ query: GET_ALL })
+    //   .valueChanges.subscribe((result: any) => {
+    //     this.pokeData = result.data.pokemon_v2_pokemon;
+    //     this.collectionSize = this.pokeData.length;
+    //     //  console.log(result.data.gen3_species.pokemon_v2_pokemon);
+
+    //     console.log(result);
+    //   });
   }
+
+  // getAll() {
+  //   this.vehicleService.getPokemon().subscribe({
+  //     next: (res) => {
+  //       this.pokeData = res;
+  //       console.log(this.pokeData);
+  //     },
+  //     error: (err) => {},
+  //   });
+  // }
 
   edit(id: number) {
     this.router.navigateByUrl(`edit/${id}`);
@@ -146,7 +154,6 @@ export class CardsPokemonComponent implements OnInit {
   delete(id: number) {
     this.vehicleService.deletePokemon(id).subscribe({
       next: (res) => {
-        this.getAll();
         console.log(this.pokeData);
       },
       error: (err) => {},

@@ -8,7 +8,10 @@ import {
   RouterEvent,
 } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { Apollo } from 'apollo-angular';
 import { Subject, takeUntil } from 'rxjs';
+import { GET_Search } from 'src/app/graphql/graphql.queries';
+import { PokemonGql } from 'src/app/interfaces/pokemon-gql.interface';
 import { PokemonServiceService } from 'src/app/services/pokemon-service.service';
 
 @Component({
@@ -26,13 +29,16 @@ export class ModalPokemonComponent implements OnInit {
     private pokeService: PokemonServiceService,
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private apollo: Apollo
   ) {}
 
   ngOnInit() {
     this.route.params.subscribe((queryParams: Params) => {
       this.idPokemon = queryParams['id'];
-      this.getPokemon(this.idPokemon);
+      this.getById(this.idPokemon);
+      //console.log(this.idPokemon);
+      // this.getPokemon(this.idPokemon, 'id');
     });
     this.getPokeFormPoke();
   }
@@ -42,6 +48,29 @@ export class ModalPokemonComponent implements OnInit {
       name: ['', Validators.required],
       description: ['', Validators.required],
     });
+  }
+
+  getById(id: number) {
+    console.log(id);
+    debugger;
+    this.apollo
+      .watchQuery<any>({
+        query: GET_Search,
+        variables: {
+          pokeId: id,
+        },
+      })
+      .valueChanges.subscribe(({ data }) => {
+        debugger;
+        console.log(data, 'pokemon_v2_pokemon');
+        // var fruritById = data.allFruits[0];
+        // this.fruitForm = {
+        //   id: fruritById.id,
+        //   name: fruritById.name,
+        //   price: fruritById.price,
+        //   quantity: fruritById.quantity,
+        // };
+      });
   }
 
   getPokemon(id: number) {

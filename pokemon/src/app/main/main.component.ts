@@ -2,7 +2,7 @@ import { query } from '@angular/animations';
 import { Component, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Apollo } from 'apollo-angular';
-import { app } from '../graphql/graphql.queries';
+
 import { ModalPokemonComponent } from '../shared/components/modal-pokemon/modal-pokemon.component';
 import { Router } from '@angular/router';
 

@@ -6,8 +6,9 @@ import { AppComponent } from './app.component';
 import { MainModule } from './main/main.module';
 import { GraphQLModule } from './graphql.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { SharedModule } from './shared/components/shared.module';
+
 import { HttpClientModule } from '@angular/common/http';
+import { ModalPokemonModule } from './shared/components/modal-pokemon/modal-pokemon.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -15,7 +16,7 @@ import { HttpClientModule } from '@angular/common/http';
     BrowserModule,
     AppRoutingModule,
     GraphQLModule,
-    SharedModule,
+    ModalPokemonModule,
     HttpClientModule,
   ],
   providers: [],

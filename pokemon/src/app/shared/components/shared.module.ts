@@ -1,12 +1,12 @@
-import { CommonModule } from '@angular/common';
-import { NgModule } from '@angular/core';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { ModalPokemonComponent } from './modal-pokemon/modal-pokemon.component';
+// import { CommonModule } from '@angular/common';
+// import { NgModule } from '@angular/core';
+// import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+// import { ModalPokemonModule } from './modal-pokemon/modal-pokemon.module';
 
-@NgModule({
-  declarations: [ModalPokemonComponent],
-  imports: [CommonModule, FormsModule, ReactiveFormsModule],
+// @NgModule({
+//   declarations: [],
+//   imports: [CommonModule, FormsModule, ModalPokemonModule],
 
-  exports: [CommonModule],
-})
-export class SharedModule {}
+//   exports: [CommonModule],
+// })
+// export class SharedModule {}

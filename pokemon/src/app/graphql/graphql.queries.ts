@@ -1,6 +1,6 @@
 import { gql } from 'apollo-angular';
 
-const app = gql`
+export const GET_ALL = gql`
   query pokemonAbilitiesAPIquery {
     pokemon_v2_pokemon {
       id
@@ -14,4 +14,11 @@ const app = gql`
   }
 `;
 
-export { app };
+export const GET_Search = gql`
+  query GetPokemonById($pokeId: Int!) {
+    pokemon_v2_pokemon_by_pk(id: $pokeId) {
+      name
+      id
+    }
+  }
+`;
