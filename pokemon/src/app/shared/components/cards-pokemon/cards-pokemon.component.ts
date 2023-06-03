@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Apollo } from 'apollo-angular';
 import { app } from 'src/app/graphql/graphql.queries';
+import { Pokemon } from 'src/app/intefaces/pokemon.interface';
 import { PokemonServiceService } from 'src/app/services/pokemon-service.service';
 
 interface Country {
@@ -105,9 +108,11 @@ export class CardsPokemonComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private apollo: Apollo,
-    private vehicleService: PokemonServiceService
+    private vehicleService: PokemonServiceService,
+    private modalService: NgbModal,
+    private router: Router
   ) {}
-  pokeData: any[] = [];
+  pokeData: Array<Pokemon> = [];
 
   ngOnInit() {
     this.getAll();
@@ -126,7 +131,7 @@ export class CardsPokemonComponent implements OnInit {
   // }
 
   getAll() {
-    this.vehicleService.getVehicle().subscribe({
+    this.vehicleService.getPokemon().subscribe({
       next: (res) => {
         this.pokeData = res;
         console.log(this.pokeData);
@@ -134,4 +139,26 @@ export class CardsPokemonComponent implements OnInit {
       error: (err) => {},
     });
   }
+
+  edit(id: number) {
+    this.router.navigateByUrl(`edit/${id}`);
+  }
+  delete(id: number) {
+    this.vehicleService.deletePokemon(id).subscribe({
+      next: (res) => {
+        this.getAll();
+        console.log(this.pokeData);
+      },
+      error: (err) => {},
+    });
+  }
+
+  // delete(){
+  //   this.pokeService.deletePokemon(this.idPokemon).subscribe({
+  //     next: (res) => {
+
+  //     },
+  //     error: (err) => {},
+  //   });
+  // }
 }

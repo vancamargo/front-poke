@@ -1,0 +1,31 @@
+<button type="button" class="btn btn-warning" (click)="back()">Voltar</button>
+<div class="container">
+  <form [formGroup]="pokeForm">
+    <div class="card-pokemon__form-name">
+      <input
+        type="text"
+        for
+        class="form-control"
+        id="exampleInputEmail1"
+        placeholder="Nome do pokemon"
+        formControlName="name"
+      />
+    </div>
+    <div class="card-pokemon__form-comment">
+      <input
+        type="text"
+        class="form-control"
+        id="exampleInputPassword1"
+        placeholder="Comentários"
+        formControlName="description"
+      />
+
+      <!-- <button type="card-pokemon__form-comment" class="btn btn-warning">
+      Adicionar
+    </button> -->
+      <button type="button" class="btn btn-warning" (click)="addPokemon()">
+        Adicionar
+      </button>
+    </div>
+  </form>
+</div>
