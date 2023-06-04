@@ -7,8 +7,13 @@ import { BehaviorSubject, Observable, Subject } from 'rxjs';
 export class SharedService {
   // send_data = new Subject<any>();
   // public data$ = this.send_data.asObservable();
-  private data: BehaviorSubject<any> = new BehaviorSubject<any>(null);
-  data$: Observable<any> = this.data.asObservable();
+  private dataSetComments: BehaviorSubject<any> = new BehaviorSubject<any>(
+    null
+  );
+  data: Observable<any> = this.dataSetComments.asObservable();
+
+  private dataSetEdit: BehaviorSubject<any> = new BehaviorSubject<any>(null);
+  dataEditComments: Observable<any> = this.dataSetEdit.asObservable();
 
   constructor() {}
 
@@ -16,7 +21,11 @@ export class SharedService {
   //   return this.send_data.asObservable();
   // }
 
-  setData(newData: any) {
-    this.data.next(newData);
+  setData(setDataComments: any) {
+    this.dataSetComments.next(setDataComments);
+  }
+
+  editData(editComments: string) {
+    this.dataSetEdit.next(editComments);
   }
 }

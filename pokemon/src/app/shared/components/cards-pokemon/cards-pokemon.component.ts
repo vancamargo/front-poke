@@ -8,7 +8,7 @@ import {
 import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Apollo } from 'apollo-angular';
-import { Observable, Subject, map, of } from 'rxjs';
+import { Observable, Subject, Subscription, map, of } from 'rxjs';
 import { Filter_Pokemon, GET_ALL } from 'src/app/graphql/graphql.queries';
 import { PokemonGql } from 'src/app/intefaces/pokemon-gql.interface';
 import { Pokemon } from 'src/app/intefaces/pokemon.interface';
@@ -32,8 +32,9 @@ export class CardsPokemonComponent implements OnInit {
   addComentsPokemon: string = '';
   coments = new FormControl('');
   allPokemon2: any[] = [];
-  private subject = new Subject<any>();
-  languages = ['Java', 'Python', 'JavaScript', 'Go'];
+
+  sub: Subscription;
+  comments: string;
 
   constructor(
     private apollo: Apollo,
@@ -45,6 +46,37 @@ export class CardsPokemonComponent implements OnInit {
 
   ngOnInit() {
     this.getAll();
+
+    this.sub = this.sharedService.data.subscribe((pokeIdCommnet) => {
+      if (!pokeIdCommnet) return;
+      //  data;
+      console.log(pokeIdCommnet, 'data poke');
+
+      const { pokeId, comment } = pokeIdCommnet;
+
+      this.allPokemon.subscribe((allPokemons) => {
+        // debugger;
+        // const pokeFounded = allPokemons.find(
+        //   (poke) => `${poke.id}` === `${pokeId}`
+        // );
+        // console.log('pokeFounded', pokeFounded);
+        // if (pokeFounded) {
+        //   pokeFounded.description = 'xxxxxx';
+        // }
+        // allPokemons.forEach((poke) => {
+        //   console.log('poke.id', poke.id);
+        //   console.log('poke', pokeId);
+        //   if (`${poke.id}` === `${pokeId}`) {
+        //     console.log('achou poke', poke);
+        //     poke.description = comment;
+        //   }
+        // });
+      });
+
+      // this.pokeForm.setValue({ comment: this.commentsPokemon, name: 'sdsd' });
+    });
+
+    this.coments.setValue(this.comments);
   }
 
   getAll() {
@@ -75,8 +107,7 @@ export class CardsPokemonComponent implements OnInit {
   // }
 
   addComment() {
-    console.log(this.coments.value);
-    this.sharedService.setData(this.coments.value);
+    this.sharedService.setData('teste');
   }
 
   // addComents(id: number) {

@@ -55,7 +55,7 @@ export class ModalPokemonComponent implements OnInit {
   }
 
   openSubscriptionPokemon() {
-    this.sub = this.sharedService.data$.subscribe((data) => {
+    this.sub = this.sharedService.data.subscribe((data) => {
       this.pokeDescription = data;
 
       this.setCommentsPokemon(this.pokeDescription);
@@ -78,6 +78,16 @@ export class ModalPokemonComponent implements OnInit {
   //     console.log(data, 'commentsssss');
   //   });
   // }
+
+  editComments() {
+    const pokeId = this.idPokemon;
+    console.log(pokeId, 'poke');
+
+    this.sharedService.setData({
+      pokeId,
+      comment: 'mock comment',
+    });
+  }
 
   initForm() {
     this.pokeForm = this.formBuilder.group({
