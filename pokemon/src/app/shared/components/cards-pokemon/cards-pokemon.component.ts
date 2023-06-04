@@ -1,40 +1,34 @@
-import { Component, OnInit } from '@angular/core';
-import {
-  FormBuilder,
-  FormControl,
-  FormGroup,
-  Validators,
-} from '@angular/forms';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+
 import { Apollo } from 'apollo-angular';
-import { Observable, Subject, Subscription, map, of } from 'rxjs';
+import { Observable, Subscription, map, of } from 'rxjs';
 import { Filter_Pokemon, GET_ALL } from 'src/app/graphql/graphql.queries';
 import { PokemonGql } from 'src/app/intefaces/pokemon-gql.interface';
 import { Pokemon } from 'src/app/intefaces/pokemon.interface';
 
-import { PokemonServiceService } from 'src/app/services/pokemon-service.service';
 import { SharedService } from 'src/app/services/shared-service.service';
 
 @Component({
-  selector: 'cards-pokemon',
+  selector: 'app-cards-pokemon',
   templateUrl: './cards-pokemon.component.html',
   styleUrls: ['./cards-pokemon.component.scss'],
 })
 export class CardsPokemonComponent implements OnInit {
   page = 1;
-  pageSize = 20;
+  pageSize = 10;
 
-  collectionSize: any;
+  collectionSize: number;
 
   allPokemon: Observable<PokemonGql[]> = of([]);
-  searchName: string = '';
-  addComentsPokemon: string = '';
+  searchName: string;
   coments = new FormControl('');
-  allPokemon2: any[] = [];
+
+  @Input() selected: boolean;
+  @Output() selectedChange = new EventEmitter<boolean>();
 
   sub: Subscription;
-  comments: string;
 
   constructor(
     private apollo: Apollo,
@@ -76,13 +70,18 @@ export class CardsPokemonComponent implements OnInit {
       // this.pokeForm.setValue({ comment: this.commentsPokemon, name: 'sdsd' });
     });
 
-    this.coments.setValue(this.comments);
+    // this.coments.setValue(this.comments);
   }
 
   getAll() {
     this.allPokemon = this.apollo
       .watchQuery<{ pokemon_v2_pokemon: PokemonGql[] }>({ query: GET_ALL })
       .valueChanges.pipe(map((result) => result.data.pokemon_v2_pokemon));
+  }
+
+  public toggleSelected() {
+    this.selected = !this.selected;
+    this.selectedChange.emit(this.selected);
   }
 
   search() {
@@ -107,7 +106,7 @@ export class CardsPokemonComponent implements OnInit {
   // }
 
   addComment() {
-    this.sharedService.setData('teste');
+    this.sharedService.setData(this.coments.value);
   }
 
   // addComents(id: number) {

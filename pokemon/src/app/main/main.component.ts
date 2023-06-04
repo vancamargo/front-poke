@@ -11,32 +11,17 @@ import { Router } from '@angular/router';
   templateUrl: './main.component.html',
   styleUrls: ['./main.component.scss'],
 })
-export class MainComponent implements OnInit {
+export class MainComponent {
   page = 1;
   pageSize = 4;
 
-  countries: any;
-  pokeData: any;
   constructor(
     private modalService: NgbModal,
     private apollo: Apollo,
     private router: Router
   ) {}
 
-  ngOnInit() {
-    // this.apollo
-    //   .watchQuery({ query: app })
-    //   .valueChanges.subscribe((result: any) => {
-    //     console.log(result.data.gen3_species);
-    //     // this.pokemonForm.controls['plate'].setValue(this.editVehicle.plate);
-    //     this.pokeData = result.data.pokemon_v2_pokemon;
-    //     console.log(this.pokeData);
-    //   });
-  }
-
   add() {
     this.router.navigateByUrl(`add`);
-
-    //modalRef.componentInstance.lesson = lesson;
   }
 }

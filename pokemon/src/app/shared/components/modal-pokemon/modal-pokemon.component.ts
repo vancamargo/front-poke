@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import {
   ActivatedRoute,
@@ -22,8 +22,8 @@ import { SharedService } from 'src/app/services/shared-service.service';
   templateUrl: './modal-pokemon.component.html',
   styleUrls: ['./modal-pokemon.component.scss'],
 })
-export class ModalPokemonComponent implements OnInit {
-  destroy = new Subject<any>();
+export class ModalPokemonComponent implements OnInit, OnDestroy {
+  destroy = new Subject<null>();
   paramsSubscription: Subscription;
 
   pokeForm!: FormGroup;
@@ -65,7 +65,7 @@ export class ModalPokemonComponent implements OnInit {
   }
 
   setCommentsPokemon(comments: string) {
-    this.pokeForm.controls['comment'].setValue(this.pokeDescription);
+    this.pokeForm.controls['comment'].setValue(comments);
     console.log(comments, 'comments');
     // this.pokeForm.controls['comment'].setValue('sdss');
   }
@@ -107,8 +107,8 @@ export class ModalPokemonComponent implements OnInit {
         },
       })
       .valueChanges.subscribe(({ data }) => {
-        var pokemon = data.pokemon_v2_pokemon_by_pk.name;
-        console.log(pokemon, 'pokemon_v2_pokemon');
+        //let pokemon = data.pokemon_v2_pokemon_by_pk.name;
+        //console.log(pokemon, 'pokemon_v2_pokemon');
         this.pokeForm.controls['name'].setValue(
           data.pokemon_v2_pokemon_by_pk.name
         );
@@ -128,8 +128,6 @@ export class ModalPokemonComponent implements OnInit {
   //     this.setCommentsPokemon(pokemonComments);
   //   });
   // }
-
-  ngAfterContentInit() {}
 
   back() {
     this.router.navigateByUrl(``);

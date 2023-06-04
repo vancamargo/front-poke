@@ -1,4 +1,3 @@
-<button type="button" class="btn btn-warning" (click)="back()">Voltar</button>
 <div class="container">
   <form [formGroup]="pokeForm">
     <div class="card-pokemon__form-name">
@@ -20,12 +19,15 @@
         formControlName="comment"
       />
 
-      <button
+      <!-- <button
         type="card-pokemon__form-comment"
         class="btn btn-warning"
         (click)="editComments()"
       >
         Editar Comentários
+      </button> -->
+      <button type="button" class="btn btn-warning" (click)="back()">
+        Voltar
       </button>
     </div>
   </form>
