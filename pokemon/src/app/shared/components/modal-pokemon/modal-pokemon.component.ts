@@ -9,10 +9,13 @@ import {
 } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Apollo } from 'apollo-angular';
-import { Subject, takeUntil } from 'rxjs';
+import { Subject, Subscription, map, takeUntil } from 'rxjs';
 import { GET_Search } from 'src/app/graphql/graphql.queries';
 import { PokemonGql } from 'src/app/intefaces/pokemon-gql.interface';
+
 import { PokemonServiceService } from 'src/app/services/pokemon-service.service';
+import { CardsPokemonComponent } from '../cards-pokemon/cards-pokemon.component';
+import { SharedService } from 'src/app/services/shared-service.service';
 
 @Component({
   selector: 'app-modal-pokemon',
@@ -21,33 +24,68 @@ import { PokemonServiceService } from 'src/app/services/pokemon-service.service'
 })
 export class ModalPokemonComponent implements OnInit {
   destroy = new Subject<any>();
+  paramsSubscription: Subscription;
 
   pokeForm!: FormGroup;
   idPokemon: number;
 
+  commentsPokemon: string;
+  pokeDescription: string;
+  sub: Subscription;
+
   constructor(
     private pokeService: PokemonServiceService,
     private formBuilder: FormBuilder,
-    private route: ActivatedRoute,
+    private activatedRoute: ActivatedRoute,
     private router: Router,
-    private apollo: Apollo
+    private apollo: Apollo,
+    private sharedService: SharedService
   ) {}
 
   ngOnInit() {
-    this.route.params.subscribe((queryParams: Params) => {
-      this.idPokemon = queryParams['id'];
-      this.getById(this.idPokemon);
-      //console.log(this.idPokemon);
-      // this.getPokemon(this.idPokemon, 'id');
-    });
-    this.getPokeFormPoke();
+    this.initForm();
+    this.paramsSubscription = this.activatedRoute.params.subscribe(
+      (queryParams: Params) => {
+        this.idPokemon = queryParams['id'];
+        this.getById(this.idPokemon);
+      }
+    );
+
+    this.openSubscriptionPokemon();
   }
 
-  getPokeFormPoke() {
+  openSubscriptionPokemon() {
+    this.sub = this.sharedService.data$.subscribe((data) => {
+      this.pokeDescription = data;
+
+      this.setCommentsPokemon(this.pokeDescription);
+
+      // this.pokeForm.setValue({ comment: this.commentsPokemon, name: 'sdsd' });
+    });
+  }
+
+  setCommentsPokemon(comments: string) {
+    this.pokeForm.controls['comment'].setValue(this.pokeDescription);
+    console.log(comments, 'comments');
+    // this.pokeForm.controls['comment'].setValue('sdss');
+  }
+
+  // teste() {
+  //   this.sub = this.sharedService..subscribe((data) => {
+  //     // this.setCommentsPokemon(data);
+  //     this.languages = data;
+  //     // this.setCommentsPokemon(this.languages);
+  //     console.log(data, 'commentsssss');
+  //   });
+  // }
+
+  initForm() {
     this.pokeForm = this.formBuilder.group({
       name: ['', Validators.required],
-      description: ['', Validators.required],
+      comment: ['', Validators.required],
     });
+
+    // this.pokeForm.controls['comment'].setValue('');
   }
 
   getById(id: number) {
@@ -64,47 +102,32 @@ export class ModalPokemonComponent implements OnInit {
         this.pokeForm.controls['name'].setValue(
           data.pokemon_v2_pokemon_by_pk.name
         );
-        // this.pokeForm.controls['name'].setValue(
-        //   data.pokemon_v2_pokemon_by_pk[0]
-        // );
-        // var fruritById = data.allFruits[0];
-        // this.fruitForm = {
-        //   id: fruritById.id,
-        //   name: fruritById.name,
-        //   price: fruritById.price,
-        //   quantity: fruritById.quantity,
-        // };
       });
   }
 
-  getPokemon(id: number) {
-    this.pokeService.getPokemonById(id).subscribe({
-      next: (resPokemon) => {
-        this.pokeForm.controls['name'].setValue(resPokemon.name);
-        this.pokeForm.controls['description'].setValue(resPokemon.name);
-      },
-      error: (err) => {},
-    });
-  }
-
-  addPokemon() {
-    debugger;
-    if (this.idPokemon) {
-      this.pokeService
-        .putPokemon(this.pokeForm.value, this.idPokemon)
-        .subscribe({
-          next: (res) => {},
-          error: (err) => {},
-        });
-    } else {
-      this.pokeService.postPokemon(this.pokeForm.value).subscribe({
-        next: (res) => {},
-        error: (err) => {},
-      });
+  ngOnDestroy() {
+    console.log('Component will be destroyed');
+    this.paramsSubscription.unsubscribe();
+    if (this.sub) {
+      this.sub.unsubscribe();
     }
   }
+  // getPokeNextPokemon() {
+  //   this.sub = this.sharedService.send_data.subscribe((res) => {
+  //     let pokemonComments = res;
+  //     this.setCommentsPokemon(pokemonComments);
+  //   });
+  // }
+
+  ngAfterContentInit() {}
 
   back() {
     this.router.navigateByUrl(``);
   }
+
+  // ngOnDestroy() {
+  //   if (this.sub) {
+  //     this.sub.unsubscribe();
+  //   }
+  // }
 }

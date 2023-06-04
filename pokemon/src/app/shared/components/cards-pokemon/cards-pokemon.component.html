@@ -48,11 +48,7 @@
         placeholder="Comentários"
       />
 
-      <button
-        type="button"
-        class="btn btn-warning"
-        (click)="addComents(pokemon.id)"
-      >
+      <button type="button" class="btn btn-warning" (click)="addComment()">
         Adicionar Comentário
       </button>
       <button
@@ -66,8 +62,6 @@
     </div>
   </form>
 </div>
-
-{{ pokeData.length }}
 
 <div class="d-flex justify-content-between p-2">
   <ngb-pagination
