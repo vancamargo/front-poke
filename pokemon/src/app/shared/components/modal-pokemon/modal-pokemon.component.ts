@@ -51,7 +51,6 @@ export class ModalPokemonComponent implements OnInit, OnDestroy {
 
   setCommentsPokemon(comments: string) {
     this.pokeForm.controls['comment'].setValue(comments);
-    console.log(comments, 'comments');
   }
 
   initForm() {
@@ -78,28 +77,9 @@ export class ModalPokemonComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.paramsSubscription.unsubscribe();
-    // if (this.sub) {
-    //   this.sub.unsubscribe();
-    // }
   }
-
-  // response() {
-
-  // }
-  // getPokeNextPokemon() {
-  //   this.sub = this.sharedService.send_data.subscribe((res) => {
-  //     let pokemonComments = res;
-  //     this.setCommentsPokemon(pokemonComments);
-  //   });
-  // }
 
   back() {
     this.router.navigateByUrl(``);
   }
-
-  // ngOnDestroy() {
-  //   if (this.sub) {
-  //     this.sub.unsubscribe();
-  //   }
-  // }
 }

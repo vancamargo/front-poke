@@ -5,6 +5,7 @@ import { NgbPagination } from '@ng-bootstrap/ng-bootstrap';
 import { RouterModule } from '@angular/router';
 import { ModalPokemonRoutingModule } from '../modal-pokemon/modal-pokemon-routing.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { SharedService } from 'src/app/services/shared-service.service';
 
 @NgModule({
   imports: [
@@ -17,5 +18,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
   ],
   declarations: [CardsPokemonComponent],
   exports: [CardsPokemonComponent],
+  providers: [SharedService],
 })
 export class CardsPokemonModule {}
