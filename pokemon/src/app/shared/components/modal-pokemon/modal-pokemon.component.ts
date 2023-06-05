@@ -17,10 +17,8 @@ export class ModalPokemonComponent implements OnInit, OnDestroy {
   paramsSubscription: Subscription;
   pokeForm!: FormGroup;
   idPokemon: number;
-  commentsPokemon: string;
   pokeDescription: string;
   sub: Subscription;
-  comment: string;
 
   constructor(
     private formBuilder: FormBuilder,
