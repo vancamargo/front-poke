@@ -1,27 +1,22 @@
-# Pokemon
+### Front Pokemon
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 15.1.1.
+Iniciando o projeto
+Para instalar o projeto, siga as instruções abaixo:
 
-## Development server
+Abra o terminal e digite: `npm install` ou npx `npm install`.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+Para iniciar o projeto, digite o seguinte comando no terminal: npx ng s.
 
-## Code scaffolding
+Este é um projeto Angular criado com a versão v15.1.1 e requer o Node.js versão v16.19.1 ou superior.
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## Como executar o projeto:
 
-## Build
+Antes de executar o projeto, verifique se o Node.js está instalado em sua máquina.
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+Abra o terminal na pasta raiz do projeto.
 
-## Running unit tests
+Execute o comando npm install para instalar todas as dependências necessárias.
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+Em seguida, execute o comando `ng serve` (`npx ng s`) para iniciar o servidor de desenvolvimento.
 
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+Abra o navegador e acesse a URL http://localhost:4200 para visualizar o projeto.
