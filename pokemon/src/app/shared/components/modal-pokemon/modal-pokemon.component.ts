@@ -45,7 +45,6 @@ export class ModalPokemonComponent implements OnInit, OnDestroy {
   openSubscriptionPokemon() {
     this.sub = this.sharedService.data.subscribe((data) => {
       this.pokeDescription = data;
-      //console.log(data, 'pokeDescription');
       this.setCommentsPokemon(this.pokeDescription);
     });
   }
@@ -53,26 +52,6 @@ export class ModalPokemonComponent implements OnInit, OnDestroy {
   setCommentsPokemon(comments: string) {
     this.pokeForm.controls['comment'].setValue(comments);
     console.log(comments, 'comments');
-    // this.pokeForm.controls['comment'].setValue('sdss');
-  }
-
-  // teste() {
-  //   this.sub = this.sharedService..subscribe((data) => {
-  //     // this.setCommentsPokemon(data);
-  //     this.languages = data;
-  //     // this.setCommentsPokemon(this.languages);
-  //     console.log(data, 'commentsssss');
-  //   });
-  // }
-
-  editComments() {
-    // debugger;
-    // console.log(, 'sss');
-
-    const description = this.pokeForm.get('comment')?.value;
-    // this.sharedService.setResponse(this.idPokemon, description);
-    console.log(description);
-    //this.sharedService.editData(this.idPokemon);
   }
 
   initForm() {
@@ -80,8 +59,6 @@ export class ModalPokemonComponent implements OnInit, OnDestroy {
       name: ['', Validators.required],
       comment: ['', Validators.required],
     });
-
-    // this.pokeForm.controls['comment'].setValue('');
   }
 
   getById(id: number) {
@@ -93,8 +70,6 @@ export class ModalPokemonComponent implements OnInit, OnDestroy {
         },
       })
       .valueChanges.subscribe(({ data }) => {
-        //let pokemon = data.pokemon_v2_pokemon_by_pk.name;
-        //console.log(pokemon, 'pokemon_v2_pokemon');
         this.pokeForm.controls['name'].setValue(
           data.pokemon_v2_pokemon_by_pk.name
         );

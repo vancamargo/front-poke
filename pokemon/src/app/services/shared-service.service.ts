@@ -1,29 +1,15 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, Subject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class SharedService {
-  // send_data = new Subject<any>();
-  // public data$ = this.send_data.asObservable();
-  private dataSetComments: BehaviorSubject<any> = new BehaviorSubject<any>(
-    null
-  );
-  data: Observable<any> = this.dataSetComments.asObservable();
+  private dataSetComments: BehaviorSubject<string> =
+    new BehaviorSubject<string>('');
+  data: Observable<string> = this.dataSetComments.asObservable();
 
-  private dataSetEdit: BehaviorSubject<any> = new BehaviorSubject<any>(null);
-  dataEditComments: Observable<any> = this.dataSetEdit.asObservable();
-
-  // getData(): Observable<any> {
-  //   return this.send_data.asObservable();
-  // }
-
-  setData(setDataComments: any) {
+  setData(setDataComments: string) {
     this.dataSetComments.next(setDataComments);
-  }
-
-  editData(editComments: string) {
-    this.dataSetEdit.next(editComments);
   }
 }

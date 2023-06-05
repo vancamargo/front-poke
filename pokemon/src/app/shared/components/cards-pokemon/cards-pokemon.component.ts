@@ -76,7 +76,7 @@ export class CardsPokemonComponent implements OnInit, OnDestroy {
   // }
 
   addComment() {
-    this.sharedService.setData(this.coments.value);
+    this.sharedService.setData(this.coments.value as string);
   }
 
   ngOnDestroy() {
@@ -84,52 +84,4 @@ export class CardsPokemonComponent implements OnInit, OnDestroy {
       this.subLength.unsubscribe();
     }
   }
-
-  // addComents(id: number) {
-  //   this.allPokemon.subscribe((result) => {
-  //     console.log(this.coments.value, id);
-  //     const itemFounded = result.find((item) => item.id === id);
-  //     console.log(itemFounded);
-  //     if (itemFounded) {
-  //       itemFounded.description = this.coments.value as string;
-  //     }
-  //     console.log(itemFounded, 'itemFounded');
-  //   });
-
-  //   // console.log('item founded ssss', itemFounded);
-  //   // if (!this.coments.value) {
-  //   //   return;
-  //   // }
-
-  //   // this.allPokemon$ = this.userService.getUsers().pipe(
-  //   //   map(users => users.map(this.getOrdersForUser)),
-  //   //   switchMap(userWithOrders$ => forkJoin(...userWithOrders$))
-  //   // );
-
-  //   // this.apollo
-  //   //   .watchQuery({ query: GET_ALL })
-  //   //   .valueChanges.subscribe((result: any) => {
-  //   //     this.pokeData = result.data.pokemon_v2_pokemon;
-  //   //     this.collectionSize = this.pokeData.length;
-
-  //   //     const itemFounded = this.pokeData.find((item) => item.id === id);
-  //   //     console.log('item founded ssss', itemFounded);
-
-  //   //     if (itemFounded) {
-  //   //       // const withComment = Object.assign(itemFounded, {
-  //   //       //   description: this.coments.value as string,
-  //   //       // });
-  //   //       itemFounded.description = 'dxxxxx';
-  //   //       // Object.preventExtensions(itemFounded);
-
-  //   //       // Object.defineProperty(itemFounded, 'descrition', {
-  //   //       //   string: this.coments.value,
-  //   //       // });
-  //   //     }
-
-  //   //     //  console.log(result.data.gen3_species.pokemon_v2_pokemon);
-
-  //   //     console.log(result);
-  //   //   });
-  // }
 }
