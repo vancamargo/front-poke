@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { ModalPokemonComponent } from './modal-pokemon/modal-pokemon.component';
+import { ModalPokemonComponent } from './modal-pokemon.component';
 
-const routes: Routes = [{ path: 'edit/:id', component: ModalPokemonComponent }];
+const routes: Routes = [{ path: '', component: ModalPokemonComponent }];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],

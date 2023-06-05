@@ -5,7 +5,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { NgbPagination } from '@ng-bootstrap/ng-bootstrap';
-import { ModalPokemonRoutingModule } from '../modal-pokemon-routing.module';
+import { ModalPokemonRoutingModule } from '../modal-pokemon/modal-pokemon-routing.module';
 import { ApolloModule } from 'apollo-angular';
 
 import { HttpClientModule } from '@angular/common/http';

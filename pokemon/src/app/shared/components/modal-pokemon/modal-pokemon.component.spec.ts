@@ -4,7 +4,7 @@ import { ModalPokemonComponent } from './modal-pokemon.component';
 import { RouterTestingModule } from '@angular/router/testing';
 import { ApolloModule } from 'apollo-angular';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { ModalPokemonRoutingModule } from '../modal-pokemon-routing.module';
+import { ModalPokemonRoutingModule } from './modal-pokemon-routing.module';
 
 describe('ModalPokemonComponent', () => {
   let component: ModalPokemonComponent;

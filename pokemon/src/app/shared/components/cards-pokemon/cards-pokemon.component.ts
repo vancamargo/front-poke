@@ -19,16 +19,12 @@ export class CardsPokemonComponent implements OnInit {
   page = 1;
   pageSize = 10;
 
-  collectionSize: number;
-
   allPokemon: Observable<PokemonGql[]>;
   searchName: string;
   coments = new FormControl('');
 
   @Input() selected: boolean;
   @Output() selectedChange = new EventEmitter<boolean>();
-  pokeTeste: [] = [];
-  minPrices: PokemonGql[];
 
   sub: Subscription;
 
@@ -39,18 +35,14 @@ export class CardsPokemonComponent implements OnInit {
     private sharedService: SharedService
   ) {}
   pokeData: Array<Pokemon> = [];
+  colectionSize: number;
 
   ngOnInit() {
     this.getAll();
 
-    this.sub = this.sharedService.data.subscribe((pokeIdCommnet) => {
-      console.log(pokeIdCommnet, 'pokemon_v2_pokemon');
-    });
-    this.sharedService.getResponse().subscribe((data) => {
-      console.log(data, 'pokemon_v2_pokemon');
-      const i = data;
-      //this.teste(i);
-    });
+    // this.sub = this.sharedService.data.subscribe((pokeIdCommnet) => {
+    //   console.log(pokeIdCommnet, 'pokemon_v2_pokemon');
+    // });
 
     // this.sub = this.sharedService.data.subscribe((pokeIdCommnet) => {
     //   if (!pokeIdCommnet) return;
@@ -101,6 +93,13 @@ export class CardsPokemonComponent implements OnInit {
     this.allPokemon = this.apollo
       .watchQuery<{ pokemon_v2_pokemon: PokemonGql[] }>({ query: GET_ALL })
       .valueChanges.pipe(map((result) => result.data.pokemon_v2_pokemon));
+    this.sizePage();
+  }
+
+  sizePage() {
+    this.allPokemon.subscribe((res) =>
+      console.log((this.colectionSize = res.length))
+    );
   }
 
   //   teste(){

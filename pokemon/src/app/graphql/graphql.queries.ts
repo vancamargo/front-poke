@@ -5,11 +5,6 @@ export const GET_ALL = gql`
     pokemon_v2_pokemon {
       id
       name
-      pokemon_v2_pokemonabilities {
-        pokemon_v2_ability {
-          name
-        }
-      }
     }
   }
 `;

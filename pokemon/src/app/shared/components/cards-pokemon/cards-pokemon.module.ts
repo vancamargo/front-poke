@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { CardsPokemonComponent } from './cards-pokemon.component';
 import { NgbPagination } from '@ng-bootstrap/ng-bootstrap';
 import { RouterModule } from '@angular/router';
-import { ModalPokemonRoutingModule } from '../modal-pokemon-routing.module';
+import { ModalPokemonRoutingModule } from '../modal-pokemon/modal-pokemon-routing.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
