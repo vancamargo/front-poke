@@ -12,27 +12,11 @@ const routes: Routes = [
   },
   { path: 'edit/:id', component: ModalPokemonComponent },
   // {
-  //   path: 'edit',
-  //   loadChildren: () =>
-  //     import('./shared/components/modal-pokemon-routing.module').then(
-  //       (m) => m.ModalPokemonRoutingModule
-  //     ),
-  // },
-  // {
-  //   path: '',
-  //   loadChildren: () => import('./main/main.module').then((m) => m.MainModule),
-  // },
-  // {
   //   path: 'edit/:id',
   //   loadChildren: () =>
   //     import('./shared/components/modal-pokemon/modal-pokemon.module').then(
-  //       (x) => x.ModalPokemonModule
+  //       (m) => m.ModalPokemonModule
   //     ),
-  // },
-  // {
-  //   path: 'edit/:id',
-  //   loadChildren: () =>
-  //     import('./shared/components/shared.module').then((m) => m.SharedModule),
   // },
 ];
 

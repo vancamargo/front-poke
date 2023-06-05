@@ -1,20 +1,10 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import {
-  ActivatedRoute,
-  ParamMap,
-  Params,
-  Router,
-  RouterEvent,
-} from '@angular/router';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Apollo } from 'apollo-angular';
-import { Subject, Subscription, map, takeUntil } from 'rxjs';
+import { Subject, Subscription } from 'rxjs';
 import { GET_Search } from 'src/app/graphql/graphql.queries';
 import { PokemonGql } from 'src/app/intefaces/pokemon-gql.interface';
-
-import { PokemonServiceService } from 'src/app/services/pokemon-service.service';
-import { CardsPokemonComponent } from '../cards-pokemon/cards-pokemon.component';
 import { SharedService } from 'src/app/services/shared-service.service';
 
 @Component({
@@ -25,16 +15,14 @@ import { SharedService } from 'src/app/services/shared-service.service';
 export class ModalPokemonComponent implements OnInit, OnDestroy {
   destroy = new Subject<null>();
   paramsSubscription: Subscription;
-
   pokeForm!: FormGroup;
   idPokemon: number;
-
   commentsPokemon: string;
   pokeDescription: string;
   sub: Subscription;
+  comment: string;
 
   constructor(
-    private pokeService: PokemonServiceService,
     private formBuilder: FormBuilder,
     private activatedRoute: ActivatedRoute,
     private router: Router,
@@ -80,13 +68,13 @@ export class ModalPokemonComponent implements OnInit, OnDestroy {
   // }
 
   editComments() {
-    const pokeId = this.idPokemon;
-    console.log(pokeId, 'poke');
+    // debugger;
+    // console.log(, 'sss');
 
-    this.sharedService.setData({
-      pokeId,
-      comment: 'mock comment',
-    });
+    const description = this.pokeForm.get('comment')?.value;
+    this.sharedService.setResponse(this.idPokemon, description);
+    console.log(description);
+    //this.sharedService.editData(this.idPokemon);
   }
 
   initForm() {
@@ -122,6 +110,10 @@ export class ModalPokemonComponent implements OnInit, OnDestroy {
       this.sub.unsubscribe();
     }
   }
+
+  // response() {
+
+  // }
   // getPokeNextPokemon() {
   //   this.sub = this.sharedService.send_data.subscribe((res) => {
   //     let pokemonComments = res;
