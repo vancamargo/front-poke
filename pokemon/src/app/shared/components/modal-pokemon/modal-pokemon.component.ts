@@ -45,10 +45,8 @@ export class ModalPokemonComponent implements OnInit, OnDestroy {
   openSubscriptionPokemon() {
     this.sub = this.sharedService.data.subscribe((data) => {
       this.pokeDescription = data;
-
+      //console.log(data, 'pokeDescription');
       this.setCommentsPokemon(this.pokeDescription);
-
-      // this.pokeForm.setValue({ comment: this.commentsPokemon, name: 'sdsd' });
     });
   }
 
@@ -72,7 +70,7 @@ export class ModalPokemonComponent implements OnInit, OnDestroy {
     // console.log(, 'sss');
 
     const description = this.pokeForm.get('comment')?.value;
-    this.sharedService.setResponse(this.idPokemon, description);
+    // this.sharedService.setResponse(this.idPokemon, description);
     console.log(description);
     //this.sharedService.editData(this.idPokemon);
   }
@@ -104,11 +102,10 @@ export class ModalPokemonComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    console.log('Component will be destroyed');
     this.paramsSubscription.unsubscribe();
-    if (this.sub) {
-      this.sub.unsubscribe();
-    }
+    // if (this.sub) {
+    //   this.sub.unsubscribe();
+    // }
   }
 
   // response() {

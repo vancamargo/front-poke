@@ -3,12 +3,10 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { MainModule } from './main/main.module';
 import { GraphQLModule } from './graphql.module';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
 import { HttpClientModule } from '@angular/common/http';
 import { ModalPokemonModule } from './shared/components/modal-pokemon/modal-pokemon.module';
+import { MainModule } from './main/main.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -18,6 +16,7 @@ import { ModalPokemonModule } from './shared/components/modal-pokemon/modal-poke
     GraphQLModule,
     ModalPokemonModule,
     HttpClientModule,
+    MainModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
